@@ -1,16 +1,20 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MainPage from './Pages/MainPage';
 import DetailPage from './Pages/DetailPage';
+import { API_URL, API_KEY } from '../utilities/config'
+// import {getNews} from '../utilities/Functions'
 import './News/news.css'
 
-class App extends React.Component {
+class App extends Component {
 
   state = {
     selectedItem: [],
     randomItem: [],
     newsCategory: [],
-    news: []
+    news: [],
+    categoryName: '',
+    error: false
   }
 
   componentDidMount() {
@@ -21,14 +25,18 @@ class App extends React.Component {
     this.setState({ selectedItem: item })
   }
 
-  handleChange = (value) => {
-    this.setState({ newsCategory: value },
+  handleChange = (value, categoryName) => {
+    this.setState({
+      newsCategory: value,
+      categoryName: categoryName
+    },
       () => this.getNews());
-  }
 
+  }
+  
   getNews = () => {
     const source = this.state.newsCategory.length === 0 ? 'bbc-news' : this.state.newsCategory;
-    const url = `https://newsapi.org/v2/everything?sources=${source}&apiKey=9e6522776c1d4066abf46b18976eb182`;
+    const url = `${API_URL}${source}&apiKey=${API_KEY}`;
 
     fetch(url)
       .then(res => res.json())
@@ -55,15 +63,19 @@ class App extends React.Component {
   handleRandomItem = (item) => {
     this.setState({ selectedItem: item });
   }
+
   render() {
-    const { selectedItem, newsCategory, news } = this.state;
+    
+    const { selectedItem, newsCategory, news, categoryName } = this.state;
+
     return (
-      <BrowserRouter>
+      <Router>
         <Switch>
           <Route exact path="/" name="Home" component={
             () => <MainPage
               setSelectedItem={this.setSelectedItem}
               newsCategory={newsCategory}
+              categoryName={categoryName}
               handleChange={this.handleChange}
               getNews={this.getNews}
               news={news}
@@ -88,7 +100,7 @@ class App extends React.Component {
               handleRandomItem={this.handleRandomItem}
             />} />
         </Switch>
-      </BrowserRouter>
+      </Router>
     )
   }
 }

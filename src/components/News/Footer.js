@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+import {newsSources, categories} from '../../utilities/config'
 import './news.css'
 import {
   Nav,
@@ -21,21 +22,16 @@ class Footer extends Component {
         </NavItem>
         <NavItem id='footer-category'>
           <span>Categories</span>
-          <Button color='' onClick={() => handleChange('techcrunch')}>
-            <Link to="/"><h4>Technology</h4></Link>
-                </Button>
-          <Button color='' onClick={() => handleChange('national-geographic')}>
-            <Link to="/"><h4>Science</h4></Link>
-                </Button>
-          <Button color='' onClick={() => handleChange('bbc-news')}>
-            <Link to="/"><h4>General</h4></Link>
-                </Button>
-          <Button color='' onClick={() => handleChange('fox-sports')}>
-            <Link to="/"><h4>Sport</h4></Link>
-                </Button>
-          <Button color='' onClick={() => handleChange('the-economist')}>
-            <Link to="/"><h4>Business</h4></Link>
+          {newsSources.map((source, index) =>
+            <Button
+              color=''
+              key={index}
+              onClick={() => handleChange(source)}>
+              <Link to="/">
+                <h5>{categories[index]}</h5>
+              </Link>
           </Button>
+          )}
         </NavItem>
         <NavItem>
           <NavLink href="/">

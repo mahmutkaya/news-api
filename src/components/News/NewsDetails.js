@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Card, CardImg, Button, Col, CardBody, CardTitle, CardText, CardSubtitle, CardLink, Row } from 'reactstrap';
 import './news.css'
-import randomIcon from '../images/random.png'
+import randomIcon from '../../images/random.png'
 import TimeAgo from 'react-timeago'
 import {
   FacebookShareButton,
@@ -13,7 +13,7 @@ import {
   TwitterIcon
 } from 'react-share';
 
-class NewsDetails extends React.Component {
+class NewsDetails extends Component {
 
   state = {
     relevantNews: []

@@ -8,8 +8,18 @@ class News extends Component {
 
   state = {
     dropdownOpen: false,
-    sortBy: true
+    sortBy: true,
+    categoryName: '',
+    // checked: false,
   }
+
+  componentDidMount()  {
+      this.setState({categoryName: this.props.categoryName})
+  }
+
+  // checked = () => {
+  //   this.setState({checked: true})
+  // }
 
   toggle = () => {
     this.setState({
@@ -39,6 +49,7 @@ class News extends Component {
   render() {
     return (
       <div className='news-body'>
+      <h1 className='category-name'>{this.state.categoryName}</h1>
         <Row>
           <ButtonDropdown
             className='sortBy col-1'
@@ -49,16 +60,16 @@ class News extends Component {
               sort by
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem onClick={this.props.sortByDate} ><span>Publish date (default)</span></DropdownItem>
-              <DropdownItem onClick={this.props.sortByTitle}><span>Title</span></DropdownItem>
-              <DropdownItem divider />
-              <abbr title='coming soon..'>
-                <DropdownItem disabled><span>Review</span></DropdownItem>
-              </abbr>
+              <DropdownItem onClick={this.props.sortByDate}><span>Publish date (default)</span></DropdownItem>
+              <DropdownItem onClick={this.props.sortByTitle}>
+                  <span>Title</span>
+              </DropdownItem>
+              
             </DropdownMenu>
+
           </ButtonDropdown>
         </Row>
-        <hr/>
+        <hr/>        
         <Row className='news-cards'>{this.renderItems()}</Row>
       </div>
     )

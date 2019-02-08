@@ -6,7 +6,7 @@ import News from '../News/News'
 
 class MainPage extends Component {
   state = {
-      error: false,
+    error: false,
   }
 
   render() {
@@ -19,12 +19,15 @@ class MainPage extends Component {
         <Navigation
           handleChange={this.props.handleChange}
           news={this.props.news}
-          handleRandomItem={this.props.handleRandomItem}/>
+          handleRandomItem={this.props.handleRandomItem} />
+        <h1>{this.props.categoryValue}</h1>
         <Col>
+          
           <CardGroup>
             <News
               renderDetails={this.props.renderDetails}
               newsCategory={this.props.newsCategory}
+              categoryName={this.props.categoryName}
               error={error} news={this.props.news}
               history={this.props.history}
               sortByDate={this.props.sortByDate}
@@ -33,7 +36,7 @@ class MainPage extends Component {
             />
           </CardGroup>
         </Col>
-        <Footer handleChange={this.props.handleChange}/>
+        <Footer handleChange={this.props.handleChange} />
       </>
     );
   }
