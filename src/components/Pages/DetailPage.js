@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Navigation from '../News/Navigation'
-import Footer from '../News/Footer'
+import Navigation from '../layout/Navigation'
+import Footer from '../layout/Footer'
 import NewsDetails from '../News/NewsDetails';
 
 class DetailPage extends Component {
@@ -12,12 +12,11 @@ class DetailPage extends Component {
           news={this.props.news}
           handleRandomItem={this.props.handleRandomItem}
           item={this.props.item} />
-        
         <NewsDetails
           news={this.props.news}
           item={this.props.item}
-          setSelectedItem={this.props.setSelectedItem} handleRandomItem={this.props.handleRandomItem} />
-        
+          setSelectedItem={this.props.setSelectedItem}
+          handleRandomItem={this.props.handleRandomItem} />
         <Footer handleChange={this.props.handleChange}/>
       </>
     );

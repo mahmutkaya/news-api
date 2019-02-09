@@ -14,7 +14,8 @@ class App extends Component {
     newsCategory: [],
     news: [],
     categoryName: '',
-    error: false
+    error: false,
+    selected: '',
   }
 
   componentDidMount() {
@@ -31,7 +32,6 @@ class App extends Component {
       categoryName: categoryName
     },
       () => this.getNews());
-
   }
   
   getNews = () => {
@@ -48,16 +48,20 @@ class App extends Component {
       }))
   }
 
-  sortByTitle = () => {
+  sortByTitle = (e) => {
     this.state.news.map(item => this.setState({
-      news: this.state.news.sort((a, b) => a.title.localeCompare(b.title))
+      news: this.state.news.sort((a, b) => a.title.localeCompare(b.title)),
+      selected: e.target.innerHTML,
     }))
+
   }
 
-  sortByDate = () => {
+  sortByDate = (e) => {
     this.state.news.map(item => this.setState({
-      news: this.state.news.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+      news: this.state.news.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)),
+      selected: e.target.innerHTML,
     }))
+
   }
 
   handleRandomItem = (item) => {
@@ -67,7 +71,7 @@ class App extends Component {
   render() {
     
     const { selectedItem, newsCategory, news, categoryName } = this.state;
-
+    
     return (
       <Router>
         <Switch>
@@ -83,8 +87,9 @@ class App extends Component {
               sortByTitle={this.sortByTitle}
               handleRandomItem={this.handleRandomItem}
               item={selectedItem}
+              selected={this.state.selected}
             />}
-          />
+        />
           <Route path={`/detail/${selectedItem.title}`} name="News Details" component={
             () => <DetailPage
               setSelectedItem={this.setSelectedItem} item={selectedItem}
@@ -92,7 +97,7 @@ class App extends Component {
               news={news}
               handleRandomItem={this.handleRandomItem}
             />} />
-          <Route path='/news/random' name="News Details" component={
+          <Route path='/news/random/' name="News Details" component={
             () => <DetailPage
               setSelectedItem={this.setSelectedItem} item={selectedItem}
               news={news}

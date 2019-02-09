@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Row } from 'reactstrap';
 import './news.css'
-import Error from './Error'
+import Error from '../../utilities/Error'
 import SingleNews from './SingleNews';
 
 class News extends Component {
@@ -10,16 +10,11 @@ class News extends Component {
     dropdownOpen: false,
     sortBy: true,
     categoryName: '',
-    // checked: false,
   }
 
   componentDidMount()  {
       this.setState({categoryName: this.props.categoryName})
   }
-
-  // checked = () => {
-  //   this.setState({checked: true})
-  // }
 
   toggle = () => {
     this.setState({
@@ -57,16 +52,16 @@ class News extends Component {
             isOpen={this.state.dropdownOpen}
             toggle={this.toggle}>
             <DropdownToggle id='sortByToggle' caret color="">
-              sort by
+              sort by: {this.props.selected}
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem onClick={this.props.sortByDate}><span>Publish date (default)</span></DropdownItem>
-              <DropdownItem onClick={this.props.sortByTitle}>
-                  <span>Title</span>
+              <DropdownItem onClick={this.props.sortByDate}>
+                Publish date (default)
               </DropdownItem>
-              
+              <DropdownItem onClick={this.props.sortByTitle}>
+                Title 
+              </DropdownItem>
             </DropdownMenu>
-
           </ButtonDropdown>
         </Row>
         <hr/>        

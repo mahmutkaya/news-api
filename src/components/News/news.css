@@ -66,6 +66,11 @@ body {
 .sortBy span,
 #sortByToggle { font-size: 1.2em; }
 
+#title:visited{
+  color: blue;
+  font-size: 3em;
+}
+
 .category-name{
   text-align: center;
 }
