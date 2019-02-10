@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MainPage from './Pages/MainPage';
 import DetailPage from './Pages/DetailPage';
-import { API_URL, API_KEY } from '../utilities/config'
+import { API_URL, API_KEY, getNews2 } from '../utilities/config'
 // import {getNews} from '../utilities/Functions'
 import './News/news.css'
+// import { decodeUriComponent } from 'decode-uri-component'
+
+// const decodeUriComponent = require('decode-uri-component'); import deseniz buna 
 
 class App extends Component {
 
@@ -15,10 +18,16 @@ class App extends Component {
     news: [],
     categoryName: '',
     error: false,
-    selected: '',
+    dateChecked: false,
+    titleChecked: false,
+    // data: ""
   }
 
   componentDidMount() {
+    // let data = getNews2([]);
+
+    // console.log(data);
+    // this.setState(() => ({ data: data }));
     this.getNews();
   }
 
@@ -33,7 +42,7 @@ class App extends Component {
     },
       () => this.getNews());
   }
-  
+
   getNews = () => {
     const source = this.state.newsCategory.length === 0 ? 'bbc-news' : this.state.newsCategory;
     const url = `${API_URL}${source}&apiKey=${API_KEY}`;
@@ -48,20 +57,20 @@ class App extends Component {
       }))
   }
 
-  sortByTitle = (e) => {
-    this.state.news.map(item => this.setState({
-      news: this.state.news.sort((a, b) => a.title.localeCompare(b.title)),
-      selected: e.target.innerHTML,
-    }))
-
-  }
-
   sortByDate = (e) => {
     this.state.news.map(item => this.setState({
       news: this.state.news.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)),
-      selected: e.target.innerHTML,
+      dateChecked: true,
+      titleChecked: false,
     }))
+  }
 
+  sortByTitle = (e) => {
+    this.state.news.map(item => this.setState({
+      news: this.state.news.sort((a, b) => a.title.localeCompare(b.title)),
+      titleChecked: true,
+      dateChecked: false,
+    }))
   }
 
   handleRandomItem = (item) => {
@@ -69,9 +78,9 @@ class App extends Component {
   }
 
   render() {
-    
-    const { selectedItem, newsCategory, news, categoryName } = this.state;
-    
+
+    const { selectedItem, newsCategory, news, categoryName, dateChecked, titleChecked } = this.state;
+
     return (
       <Router>
         <Switch>
@@ -87,10 +96,12 @@ class App extends Component {
               sortByTitle={this.sortByTitle}
               handleRandomItem={this.handleRandomItem}
               item={selectedItem}
-              selected={this.state.selected}
+              dateChecked={dateChecked}
+              titleChecked={titleChecked}
+
             />}
-        />
-          <Route path={`/detail/${selectedItem.title}`} name="News Details" component={
+          />
+          <Route path={`/detail/${(selectedItem.title)}`} name="News Details" component={
             () => <DetailPage
               setSelectedItem={this.setSelectedItem} item={selectedItem}
               handleChange={this.handleChange}

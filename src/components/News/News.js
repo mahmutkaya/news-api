@@ -42,6 +42,15 @@ class News extends Component {
       : <Error />
 
   render() {
+    
+    const check = <span role='img' aria-label='checked'>✔️</span>
+    const date = this.props.dateChecked
+      ? check
+      : ''
+    const title = this.props.titleChecked
+      ? check
+      : ''
+
     return (
       <div className='news-body'>
       <h1 className='category-name'>{this.state.categoryName}</h1>
@@ -52,14 +61,14 @@ class News extends Component {
             isOpen={this.state.dropdownOpen}
             toggle={this.toggle}>
             <DropdownToggle id='sortByToggle' caret color="">
-              sort by: {this.props.selected}
+              sort by:
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem onClick={this.props.sortByDate}>
-                Publish date (default)
+              <DropdownItem  onClick={this.props.sortByDate}>
+                <span >Publish date {date} </span>
               </DropdownItem>
-              <DropdownItem onClick={this.props.sortByTitle}>
-                Title 
+              <DropdownItem  onClick={this.props.sortByTitle}>
+                <span> Title {title} </span>
               </DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>

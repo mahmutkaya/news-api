@@ -10,35 +10,48 @@ class MainPage extends Component {
   }
   
   render() {
+    const {error} = this.state;
     const {
-      error,
-    } = this.state;
+      news,
+      handleChange,
+      handleRandomItem,
+      renderDetails,
+      newsCategory,
+      categoryName,
+      sortByDate,
+      sortByTitle,
+      setSelectedItem,
+      dateChecked,
+      titleChecked,
+      // history,
+      // location
+    } = this.props
     
     return (
       <>
         <Navigation
-          handleChange={this.props.handleChange}
-          news={this.props.news}
-          handleRandomItem={this.props.handleRandomItem} />
+          handleChange={handleChange}
+          news={news}
+          handleRandomItem={handleRandomItem} />
         <Col>
-          
           <CardGroup>
             <News
-              renderDetails={this.props.renderDetails}
-              newsCategory={this.props.newsCategory}
-              categoryName={this.props.categoryName}
+              renderDetails={renderDetails}
+              newsCategory={newsCategory}
+              categoryName={categoryName}
               error={error}
-              news={this.props.news}
-              history={this.props.history}
-              location={this.props.location}
-              sortByDate={this.props.sortByDate}
-              sortByTitle={this.props.sortByTitle}
-              setSelectedItem={this.props.setSelectedItem}
-              selected={this.props.selected}
+              news={news}
+              // history={history}
+              // location={location}
+              sortByDate={sortByDate}
+              sortByTitle={sortByTitle}
+              setSelectedItem={setSelectedItem}
+              dateChecked={dateChecked}
+              titleChecked={titleChecked}
             />
           </CardGroup>
         </Col>
-        <Footer handleChange={this.props.handleChange} />
+        <Footer handleChange={handleChange} />
       </>
     );
   }

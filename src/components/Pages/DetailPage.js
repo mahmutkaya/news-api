@@ -5,19 +5,26 @@ import NewsDetails from '../News/NewsDetails';
 
 class DetailPage extends Component {
   render() {
+    const {
+      news,
+      handleChange,
+      handleRandomItem,
+      item,
+      setSelectedItem,
+    } = this.props
     return (
       <>
         <Navigation
-          handleChange={this.props.handleChange}
-          news={this.props.news}
-          handleRandomItem={this.props.handleRandomItem}
-          item={this.props.item} />
+          handleChange={handleChange}
+          news={news}
+          handleRandomItem={handleRandomItem}
+          item={item} />
         <NewsDetails
-          news={this.props.news}
-          item={this.props.item}
-          setSelectedItem={this.props.setSelectedItem}
-          handleRandomItem={this.props.handleRandomItem} />
-        <Footer handleChange={this.props.handleChange}/>
+          news={news}
+          item={item}
+          setSelectedItem={setSelectedItem}
+          handleRandomItem={handleRandomItem} />
+        <Footer handleChange={handleChange}/>
       </>
     );
   }
