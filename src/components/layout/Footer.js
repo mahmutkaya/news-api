@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import {newsSources, categories} from '../../utilities/config'
+import { newsSources, categories } from '../../logic/config'
 import '../News/news.css'
 import {
   Nav,
@@ -10,6 +10,13 @@ import {
 } from 'reactstrap';
 
 class Footer extends Component {
+
+  //get a random news
+  setRandomItem = () => {
+    const { news, handleRandomItem } = this.props
+    const item = news[Math.floor(Math.random() * news.length)];
+    handleRandomItem(item);
+  }
 
   render() {
     const { handleChange } = this.props
@@ -26,7 +33,7 @@ class Footer extends Component {
             <Button
               color=''
               key={index}
-              onClick={() => handleChange(source)}>
+              onClick={() => handleChange(source, categories[index])}>
               <Link to="/">
                 <h5>{categories[index]}</h5>
               </Link>
@@ -34,9 +41,11 @@ class Footer extends Component {
           )}
         </NavItem>
         <NavItem>
-          <NavLink href="/">
-            <span>Random</span>
-          </NavLink>
+          <Link to='/news/random'>
+            <Button color="" onClick={this.setRandomItem}>
+              <span>Random</span>
+            </Button>
+          </Link>
         </NavItem>
       </Nav>
     )

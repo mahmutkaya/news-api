@@ -5,12 +5,8 @@ import Footer from '../layout/Footer'
 import News from '../News/News'
 
 class MainPage extends Component {
-  state = {
-    error: false,
-  }
   
   render() {
-    const {error} = this.state;
     const {
       news,
       handleChange,
@@ -23,26 +19,21 @@ class MainPage extends Component {
       setSelectedItem,
       dateChecked,
       titleChecked,
-      // history,
-      // location
     } = this.props
     
     return (
       <>
         <Navigation
-          handleChange={handleChange}
           news={news}
+          handleChange={handleChange}
           handleRandomItem={handleRandomItem} />
         <Col>
           <CardGroup>
             <News
+              news={news}
               renderDetails={renderDetails}
               newsCategory={newsCategory}
               categoryName={categoryName}
-              error={error}
-              news={news}
-              // history={history}
-              // location={location}
               sortByDate={sortByDate}
               sortByTitle={sortByTitle}
               setSelectedItem={setSelectedItem}
@@ -51,7 +42,10 @@ class MainPage extends Component {
             />
           </CardGroup>
         </Col>
-        <Footer handleChange={handleChange} />
+        <Footer
+          news={news}
+          handleChange={handleChange}
+          handleRandomItem={handleRandomItem} />
       </>
     );
   }

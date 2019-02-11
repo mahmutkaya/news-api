@@ -24,7 +24,10 @@ class DetailPage extends Component {
           item={item}
           setSelectedItem={setSelectedItem}
           handleRandomItem={handleRandomItem} />
-        <Footer handleChange={handleChange}/>
+        <Footer
+          news={news}
+          handleChange={handleChange}
+          handleRandomItem={handleRandomItem} />
       </>
     );
   }

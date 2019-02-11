@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Card, CardImg, Button, Col, CardBody, CardTitle, CardText, CardSubtitle, CardLink, Row } from 'reactstrap';
 import './news.css'
@@ -11,7 +11,7 @@ import {
   LinkedinIcon,
   TwitterShareButton,
   TwitterIcon
-} from 'react-share';
+} from 'react-share'
 
 class NewsDetails extends Component {
 
@@ -19,36 +19,43 @@ class NewsDetails extends Component {
     relevantNews: []
   }
 
+  //lifecycle method for relevant news
   componentDidMount() {
-    const items = this.props.news
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 3);
-
-    this.setState({ relevantNews: items });
+    this.getRelevantNews()
   }
 
+  //get relevant news
+  getRelevantNews = () => (
+    this.setState({
+      relevantNews: this.props.news
+        .sort(() => .5 - Math.random()) //sort news randomly
+        .slice(0, 3) //take first 3 news
+    })
+  )
+
+  //get a random news
   setRandomItem = () => {
     const { news, handleRandomItem } = this.props
-    const item = news[Math.floor(Math.random() * news.length)];
-    handleRandomItem(item);
+    const item = news[Math.floor(Math.random() * news.length)]
+    handleRandomItem(item)
   }
 
   render() {
-    const { item } = this.props;
-    const { relevantNews } = this.state;
+    const { item } = this.props
+    const { relevantNews } = this.state
 
     return (
       <Container>
         <Row>
           <Card id='news-details'>
             <div className='icon'>
-                  <abbr title='Click for random news'>
-              <Link to='/news/random'>
-                <Button color="" onClick={this.setRandomItem}>
+              <abbr title='Click for random news'>
+                <Link to='/news/random'>
+                  <Button color="" onClick={this.setRandomItem}>
                     <img src={randomIcon} alt='random icon' />
-                </Button>
-              </Link>
-                  </abbr>
+                  </Button>
+                </Link>
+              </abbr>
             </div>
             <CardBody>
               <CardTitle><h1>{item.title}</h1></CardTitle>
@@ -76,7 +83,7 @@ class NewsDetails extends Component {
               </div>
             </CardBody>
           </Card>
-        </Row>        
+        </Row>
         <Row>
           {relevantNews.map(item =>
             <Col id='relevant-news' sm='4' key={item.url}>

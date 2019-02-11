@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import { newsSources, categories } from '../../utilities/config'
+import { newsSources, categories } from '../../logic/config'
 import '../News/news.css'
 import logo from '../../images/logo.svg'
 import {
@@ -20,7 +20,6 @@ class Navigation extends Component {
 
   state = {
     isOpen: false,
-    category: ""
   };
 
   toggle = () => {
@@ -29,6 +28,7 @@ class Navigation extends Component {
     });
   }
 
+  //get a random news
   setRandomItem = () => {
     const { news, handleRandomItem } = this.props
     const item = news[Math.floor(Math.random() * news.length)];
